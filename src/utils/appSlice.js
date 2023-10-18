@@ -6,6 +6,7 @@ const appSlice = createSlice({
         isNavbarOpen: true,
         isSearchbarOpen: true, 
         
+        
     },
     reducers: {
         toggleNavbar: (state) => {
@@ -14,6 +15,7 @@ const appSlice = createSlice({
         toggleSearchbar: (state) => {
             state.isSearchbarOpen = !state.isSearchbarOpen;
         },
+       
     },
 });
 

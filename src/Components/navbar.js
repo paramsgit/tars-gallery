@@ -1,11 +1,13 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleSearchbar, toggleNavbar } from '../utils/appSlice'
-const Navbar = () => {
+const Navbar = (props) => {
     const dispatch=useDispatch();
-    // console.log(dispatch)
+    const Theme=props.mode[0]
+    const setTheme=props.mode[1]
     const isNavbarOpen=useSelector((store)=>store.app.isNavbarOpen)
     const isSearchbarOpen=useSelector((store)=>store.app.isSearchbarOpen)
+    
     
     const ToggleNavbar=()=>{
       dispatch(toggleNavbar())
@@ -13,6 +15,10 @@ const Navbar = () => {
     const ToggleSearchbar=()=>{
       dispatch(toggleSearchbar())
     }
+    const SwitchTheme=()=>{
+      setTheme(!Theme)
+    }
+    
   return (
     <div>
 
@@ -56,7 +62,7 @@ const Navbar = () => {
         <input type="text" id="search-navbar" className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." />
       </div>
       
-      <ul className={`${isNavbarOpen?"hidden md:flex":"flex"} flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700`}>
+      <ul className={`${isNavbarOpen?"hidden md:flex":"flex"} flex-col items-center p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700`}>
         <li>
           <div className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</div>
         </li>
@@ -65,6 +71,17 @@ const Navbar = () => {
         </li>
         <li>
           <div className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</div>
+        </li>
+        <li>
+          {Theme?
+           <button onClick={SwitchTheme} type="button" className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2 mr-2 dark:bg-white dark:text-gray-900 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Light</button>
+        
+         :
+         <button onClick={SwitchTheme} type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2 mr-2  dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Dark</button>
+        }
+       
+
+
         </li>
       </ul>
     </div>
