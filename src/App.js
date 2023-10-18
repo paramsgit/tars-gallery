@@ -1,10 +1,12 @@
 import './App.css';
-
+import Navbar from './Components/navbar';
+import { Provider } from 'react-redux';
+import store from './utils/store';
 function App() {
   return (
-    <>
-    <h1 className='bg-blue text-bold underline'>Hello world</h1>
-    </>
+    <Provider store={store}>
+    <Navbar/>
+    </Provider>
   );
 }
 
