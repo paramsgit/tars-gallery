@@ -1,6 +1,14 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 
 const Card = (props) => {
+const [width,setwidth]=useState()
+const [height,setheight]=useState()
+useEffect(() => {
+  const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+  const remValue = 16; // You can change this to the desired REM value
+  const pixelsValue = remValue * rootFontSize;
+  console.log(pixelsValue)
+}, [])
 
   return (
     <>

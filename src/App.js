@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { useEffect, useState } from 'react';
 import store from './utils/store';
 import Container from './Components/container';
+
 function App() {
   const [theme,settheme]=useState(true)
 
@@ -20,7 +21,8 @@ function App() {
   return (
     <Provider store={store} >
     <Navbar mode={[theme,settheme]}/>
-    {/* <Container/> */}
+    <Container/>
+   
     </Provider>
   );
 }
