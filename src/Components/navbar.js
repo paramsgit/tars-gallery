@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleSearchbar, toggleNavbar } from '../utils/appSlice'
+import { searchValue } from '../utils/searchSlice'
 const Navbar = (props) => {
     const dispatch=useDispatch();
     const Theme=props.mode[0]
@@ -28,15 +29,23 @@ const Navbar = (props) => {
       setTheme(!Theme)
     }
     const getSearchSuggestions=async()=>{
-      console.log(searchInput)
+      
+
        if(searchInput.length)
         {
+          try{
           const response = await fetch(
           `http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=${searchInput}`,
         );
         const data=await response.json();
         console.log(data)
         setSearchSuggestions(data[1])
+          }
+          catch(error){
+            console.log(error)
+            const error_text=["!Suggestion failed to fetch"]
+            setSearchSuggestions(error_text)
+          }
         }
         else{
           setSearchSuggestions([])
@@ -44,13 +53,23 @@ const Navbar = (props) => {
         
       
     }
-   
+   const handleSubmit=(e)=>{
+    e.preventDefault();
+    dispatch(searchValue(searchInput))
+   }
     
+   const handleNewSearch=(e)=>{
+    if(e.target.id!=="!Suggestion failed to fetch"){
+      setsearchInput(e.target.id)
+      dispatch(searchValue(e.target.id))
+      
+    }
+   }
   return (
-    <div>
+    
 
     
-<nav className="bg-white border-gray-200 dark:bg-gray-900">
+<nav className="fixed w-full bg-white border-gray-200 dark:bg-gray-900">
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
   <a href="https://flowbite.com/" className="flex items-center">
       <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />
@@ -70,12 +89,13 @@ const Navbar = (props) => {
         </svg>
         <span className="sr-only">Search icon</span>
       </div>
+      <form onSubmit={handleSubmit}>
       <input value={searchInput} onChange={(e)=>setsearchInput(e.target.value)} onClick={()=>setsearchFocused(true)} onBlur={()=>setsearchFocused(false)} type="text" id="search-navbar" className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." />
-     
+      </form>
      <div className={`mt-5 fixed bg-white dark:bg-slate-800 w-full max-w-[420px] rounded-lg ${searchInput.length?"py-4":""} ${(SearchSuggestions && searchFocused) ?"":"opacity-0"} transition-all duration-300 ease-in-out shadow-2xl dark:shadow-black dark:shadow-2xl z-20`}>
         <ul className=''>
           {SearchSuggestions.map((e)=>
-              <li className='px-5 py-1 dark:text-white dark:hover:bg-slate-700 text-gray-800 hover:bg-sky-100 cursor-default' key={e}>{e}</li>
+              <li onClick={handleNewSearch} className='px-5 py-1 dark:text-white dark:hover:bg-slate-700 text-gray-800 hover:bg-sky-100 cursor-default' id={e} key={e}>{e}</li>
           )}
         </ul>
       </div>
@@ -94,7 +114,9 @@ const Navbar = (props) => {
             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
           </svg>
         </div>
+        <form onSubmit={handleSubmit}>
         <input value={searchInput} onChange={(e)=>setsearchInput(e.target.value)} type="text" id="search-navbar" className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." />
+       </form>
       </div>
       
       <ul className={`${isNavbarOpen?"hidden md:flex":"flex"} flex-col items-center p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700`}>
@@ -124,11 +146,9 @@ const Navbar = (props) => {
 </nav>
 
 
-<div>
 
-</div>
 
-    </div>
+  
   )
 }
 

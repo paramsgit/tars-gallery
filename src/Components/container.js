@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import { imagesDataApi } from "../utils/constants";
 import Card from "./card";
 import Masonry from "react-masonry-css";
+import { useSelector } from "react-redux";
 const Container = () => {
   const [imagesData, setimagesData] = useState([]);
+  const searchValue=useSelector((store)=>store.search.searchInput)
+  console.log(searchValue)
   useEffect(() => {
     getImagesData();
-  }, []);
+    console.log(searchValue)
+  }, [searchValue]);
 
   const getImagesData = async () => {
     const response = await fetch(
-      imagesDataApi + process.env.REACT_APP_UNSPLASH_TOKEN
+      imagesDataApi+`?query=${searchValue}&page=1&per_page=20&client_id=` + process.env.REACT_APP_UNSPLASH_TOKEN
     );
     const data = await response.json();
     console.log(data);
@@ -25,7 +29,7 @@ const Container = () => {
     700:1
   }
   return (
-    <div className={`transition-all duration-500 ease-in-out bg-slate-100 dark:bg-[#0f0f0f]`}>
+    <div className={`pt-20 transition-all duration-500 ease-in-out bg-slate-100 dark:bg-[#0f0f0f]`}>
       <div className="flex flex-wrap justify-evenly p-5">
         <Masonry
           breakpointCols={breakpoints}

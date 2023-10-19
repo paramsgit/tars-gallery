@@ -20,7 +20,7 @@ function App() {
   return (
     <Provider store={store} >
     <Navbar mode={[theme,settheme]}/>
-    <Container/>
+    {/* <Container/> */}
     </Provider>
   );
 }
