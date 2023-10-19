@@ -1,1 +1,2 @@
 export const searchSuggestionApi="http://suggestqueries.google.com/complete/search?client=firefox&q="
+export const imagesDataApi="https://api.unsplash.com/search/photos/?query=nature&page=1&per_page=20&client_id="
