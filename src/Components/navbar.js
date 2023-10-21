@@ -11,6 +11,7 @@ const Navbar = (props) => {
     const [searchInput,setsearchInput]=useState("")
     const [SearchSuggestions,setSearchSuggestions]=useState([])
     const [searchFocused,setsearchFocused]=useState(false)
+    const [SuggestionBoxClickable,setSuggestionBoxClickable]=useState(false)
     useEffect(() => {
       const timer=setTimeout(()=>getSearchSuggestions(), 400);
       
@@ -61,6 +62,7 @@ const Navbar = (props) => {
    const handleNewSearch=(e)=>{
     if(e.target.id!=="!Suggestion failed to fetch"){
       setsearchInput(e.target.id)
+      setSuggestionBoxClickable(false)
       dispatch(searchValue(e.target.id))
       
     }
@@ -69,11 +71,11 @@ const Navbar = (props) => {
     
 
     
-<nav className="fixed w-full bg-white border-gray-200 dark:bg-gray-900">
+<nav className="fixed w-full bg-white border-gray-200 dark:bg-[#141414] z-[60]">
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-  <a href="https://flowbite.com/" className="flex items-center">
-      <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />
-      <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+  <a href="#" className="flex items-center">
+      
+      <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Image Gallery</span>
   </a>
   <div className="flex md:order-1 max-w-[420px] md:w-full">
     <button onClick={ToggleSearchbar} type="button" aria-controls="navbar-search" aria-expanded="false" className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1" >
@@ -90,9 +92,9 @@ const Navbar = (props) => {
         <span className="sr-only">Search icon</span>
       </div>
       <form onSubmit={handleSubmit}>
-      <input value={searchInput} onChange={(e)=>setsearchInput(e.target.value)} onClick={()=>setsearchFocused(true)} onBlur={()=>setsearchFocused(false)} type="text" id="search-navbar" className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." />
+      <input value={searchInput} onChange={(e)=>setsearchInput(e.target.value)} onClick={()=>{setsearchFocused(true);setSuggestionBoxClickable(true)}} onBlur={()=>setsearchFocused(false)} type="text" id="search-navbar" className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." />
       </form>
-     <div className={`mt-5 fixed bg-white dark:bg-slate-800 w-full max-w-[420px] rounded-lg ${searchInput.length?"py-4":""} ${(SearchSuggestions && searchFocused) ?"":"opacity-0"} transition-all duration-300 ease-in-out shadow-2xl dark:shadow-black dark:shadow-2xl z-20`}>
+     <div className={`mt-5 fixed bg-white dark:bg-slate-800 w-full max-w-[420px] rounded-lg ${searchInput.length?"py-4":""} ${(SearchSuggestions && searchFocused) ?"":"opacity-0 "} transition-all duration-300 ease-in-out shadow-2xl dark:shadow-black dark:shadow-2xl z-20 ${SuggestionBoxClickable?"":'pointer-events-none'}`}>
         <ul className=''>
           {SearchSuggestions.map((e)=>
               <li onClick={handleNewSearch} className='px-5 py-1 dark:text-white dark:hover:bg-slate-700 text-gray-800 hover:bg-sky-100 cursor-default' id={e} key={e}>{e}</li>
@@ -119,15 +121,15 @@ const Navbar = (props) => {
        </form>
       </div>
       
-      <ul className={`${isNavbarOpen?"hidden md:flex":"flex"} flex-col items-center p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700`}>
+      <ul className={`${isNavbarOpen?"hidden md:flex":"flex"} flex-col items-center p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:border-gray-700`}>
         <li>
-          <div className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</div>
+          <div className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Explore</div>
         </li>
         <li>
-          <div className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</div>
+          <div className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Collection</div>
         </li>
         <li>
-          <div className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</div>
+          <div className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Community</div>
         </li>
         <li>
           {Theme?

@@ -3,15 +3,20 @@ import { imagesDataApi } from "../utils/constants";
 import Card from "./card";
 import Loading from "./loading";
 import Masonry from "react-masonry-css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Modal from "./modal";
+import { OpenModal } from "../utils/appSlice";
+import { dummyModal } from "../utils/constants";
 const Container = () => {
   const [imagesData, setimagesData] = useState([]);
   const [dataLoading, setdataLoading] = useState(false);
+  const [modalData, setmodalData] = useState(dummyModal);
   const searchValue=useSelector((store)=>store.search.searchInput)
-  console.log(searchValue)
+  const isModalOpen=useSelector((store)=>store.app.isModalOpen)
+  const dispatch=useDispatch()
   useEffect(() => {
     getImagesData();
-    console.log(searchValue)
+   
   }, [searchValue]);
 
   const getImagesData = async () => {
@@ -30,6 +35,12 @@ const Container = () => {
     
   };
 
+  const showmodal=()=>{
+    dispatch(OpenModal())
+  }
+  const cardClicked=()=>{
+    console.log("Card clocked")
+  }
   const breakpoints={
     default:4,
     1100:3,
@@ -37,7 +48,10 @@ const Container = () => {
     700:1
   }
   return (
-    <div className={`pt-20 transition-all duration-500 ease-in-out bg-slate-100 dark:bg-[#0f0f0f]`}>
+    <div className={`pt-20 transition-all duration-500 ease-in-out bg-slate-100 dark:bg-[#232323]`}>
+
+      <Modal isVisible={isModalOpen} data={modalData}/>
+
       {dataLoading?<Loading/>:
       <div className="flex flex-wrap justify-evenly p-5">
         <Masonry
@@ -46,7 +60,11 @@ const Container = () => {
           columnClassName="my-masonry-grid_column"
         >
           {imagesData.length
-            ? imagesData.map((e) => <Card key={e.id} imageUrl={e.urls.small_s3} user={e.user} likes={e.likes} wid={e.width} high={e.height}/>)
+            ? imagesData.map((e) => 
+            <div onClick={()=>{setmodalData(e);showmodal()}} key={e.id}>
+            <Card data={e}  />
+            </div>
+            )
             : ""}
         </Masonry>
       </div>
