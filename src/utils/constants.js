@@ -2,7 +2,7 @@ export const searchSuggestionApi="http://suggestqueries.google.com/complete/sear
 export const imagesDataApi="https://api.unsplash.com/search/photos/"
 export const twitter_url="https://twitter.com/"
 export const instagram_url="https://instagram.com/"
-
+export const per_page_images=25
 
 export const dummyModal={
     "id": "3MYvgsH1uK0",

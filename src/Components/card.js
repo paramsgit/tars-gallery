@@ -17,7 +17,6 @@ const [imageLoaded,setimageLoaded]=useState(false)
 useEffect(() => {
   setwidth(divRef.current.clientWidth);
   setheight((width*imgHeight)/imgWidth)
-  console.log(width,height)
 
   const img=new Image()
   img.onload=()=>{

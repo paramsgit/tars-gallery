@@ -2,19 +2,20 @@ import React, { useState,useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleSearchbar, toggleNavbar } from '../utils/appSlice'
 import { searchValue } from '../utils/searchSlice'
+import { pageReset } from '../utils/pageSlice'
 const Navbar = (props) => {
     const dispatch=useDispatch();
     const Theme=props.mode[0]
     const setTheme=props.mode[1]
     const isNavbarOpen=useSelector((store)=>store.app.isNavbarOpen)
     const isSearchbarOpen=useSelector((store)=>store.app.isSearchbarOpen)
+    const currentpageNumber=useSelector((store)=>store.pageNumber.pageNumber)
     const [searchInput,setsearchInput]=useState("")
     const [SearchSuggestions,setSearchSuggestions]=useState([])
     const [searchFocused,setsearchFocused]=useState(false)
     const [SuggestionBoxClickable,setSuggestionBoxClickable]=useState(false)
     useEffect(() => {
       const timer=setTimeout(()=>getSearchSuggestions(), 400);
-      
       return () => {
         clearTimeout(timer)
       }
@@ -57,6 +58,7 @@ const Navbar = (props) => {
    const handleSubmit=(e)=>{
     e.preventDefault();
     dispatch(searchValue(searchInput))
+    dispatch(pageReset())
    }
     
    const handleNewSearch=(e)=>{
@@ -64,6 +66,7 @@ const Navbar = (props) => {
       setsearchInput(e.target.id)
       setSuggestionBoxClickable(false)
       dispatch(searchValue(e.target.id))
+      dispatch(pageReset())
       
     }
    }

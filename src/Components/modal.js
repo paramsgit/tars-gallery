@@ -23,7 +23,6 @@ const Modal = (props) => {
     useEffect(() => {
       setwidth(divRef.current.clientWidth);
       setheight((width*imgHeight)/imgWidth)
-      console.log("modal",width,height)
     
       const img=new Image()
       img.onload=()=>{
