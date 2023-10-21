@@ -6,11 +6,9 @@ const Pagination = (props) => {
     const total_pages=props.total
     const dispatch=useDispatch();
     const incrementPage=()=>{
-        console.log("inc")
         dispatch(pageIncrement())
     }
     const decrementPage=()=>{
-        console.log("dec")
         dispatch(pageDecrement())
     }
   return (

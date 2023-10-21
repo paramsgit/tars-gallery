@@ -5,9 +5,7 @@ const appSlice = createSlice({
     initialState: {
         isNavbarOpen: true,
         isSearchbarOpen: true, 
-        isModalOpen: false, 
-        
-        
+        isModalOpen: false,    
     },
     reducers: {
         toggleNavbar: (state) => {

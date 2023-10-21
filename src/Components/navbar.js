@@ -57,6 +57,8 @@ const Navbar = (props) => {
     }
    const handleSubmit=(e)=>{
     e.preventDefault();
+    setSuggestionBoxClickable(false)
+    setsearchFocused(false)
     dispatch(searchValue(searchInput))
     dispatch(pageReset())
    }
@@ -87,6 +89,7 @@ const Navbar = (props) => {
       </svg>
       <span className="sr-only">Search</span>
     </button>
+
     <div className="relative hidden md:block w-full">
       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
         <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -94,8 +97,10 @@ const Navbar = (props) => {
         </svg>
         <span className="sr-only">Search icon</span>
       </div>
+
       <form onSubmit={handleSubmit}>
-      <input value={searchInput} onChange={(e)=>setsearchInput(e.target.value)} onClick={()=>{setsearchFocused(true);setSuggestionBoxClickable(true)}} onBlur={()=>setsearchFocused(false)} type="text" id="search-navbar" className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." />
+      <input value={searchInput} onChange={(e)=>setsearchInput(e.target.value)} onClick={()=>{setsearchFocused(true);setSuggestionBoxClickable(true)}} onBlur={()=>setsearchFocused(false)} type="text" id="search-navbar" 
+      className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." />
       </form>
      <div className={`mt-5 fixed bg-white dark:bg-slate-800 w-full max-w-[420px] rounded-lg ${searchInput.length?"py-4":""} ${(SearchSuggestions && searchFocused) ?"":"opacity-0 "} transition-all duration-300 ease-in-out shadow-2xl dark:shadow-black dark:shadow-2xl z-20 ${SuggestionBoxClickable?"":'pointer-events-none'}`}>
         <ul className=''>

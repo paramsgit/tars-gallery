@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const searchSlice=createSlice({
     name:"search",
     initialState:{
-        searchInput:"hello"
+        searchInput:"random"
     },
     reducers:{
         searchValue:(state,action)=>{

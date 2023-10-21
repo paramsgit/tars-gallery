@@ -26,6 +26,7 @@ const Container = () => {
 
   const getImagesData = async () => {
     setdataLoading(true);
+    window.scrollTo(0, 0);
     try {
       const response = await fetch(
         imagesDataApi +
@@ -33,10 +34,9 @@ const Container = () => {
           clientId
       );
       const data = await response.json();
-      console.log(data);
       setimagesData(data.results);
       settotal_pages(data.total_pages);
-      window.scrollTo(0, 0);
+      
     } catch (error) {
       console.log(error);
     }
@@ -63,6 +63,7 @@ const Container = () => {
         <Loading />
       ) : (
         <div className="flex flex-wrap justify-evenly p-5">
+          
           <Masonry
             breakpointCols={breakpoints}
             className="my-masonry-grid"
