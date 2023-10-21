@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# Unsplash Photo Gallery App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This single-page app fetches photos from the Unsplash API and provides a user-friendly interface for browsing and searching images. It uses Tailwind CSS for styling and includes features like real-time search suggestions, debouncing for API calls, and image pop-up modals.
 
-## Available Scripts
+## Table of Contents
+- [Getting Started](#getting-started)
+- [Features](#features)
+- [Usage](#usage)
+- [Dependencies](#dependencies)
+- [Contributing](#contributing)
+- [License](#license)
 
-In the project directory, you can run:
+## Getting Started
 
-### `npm start`
+To run this app locally, follow these steps:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/unsplash-photo-gallery.git
+   cd unsplash-photo-gallery
+    ```
+2. Install the dependencies:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    ```bash
+    npm install
+    ```
+3. Configure the Unsplash API:
 
-### `npm test`
+    Sign up for an Unsplash API key at https://unsplash.com/developers.
+Create a .env file in the project root and add your API key:
+```REACT_APP_UNSPLASH_API_KEY=your_api_key_here```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. Run the development server:
 
-### `npm run build`
+```bash
+npm start
+```
+Open your browser and go to http://localhost:3000 to use the app.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Features
+- Fetching Photos: The app fetches photos from the Unsplash API. The photo lists can be found in the returned JSON data.
+ The main page displays a list of image thumbnails with the name of the user and the number of likes. This data comes from the Unsplash List Photos API.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Real-Time Search : You can search for photos using the Unsplash search API. There is a search bar at the top of the page for this purpose.
+Typing anything in the search bar updates the page view with the image search results in real-time.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Image Pop-Up Modals: Clicking on any photo in the list displays the actual image in a pop-up modal. The modal includes details such as user information, likes count, user's social links, and other relevant data from the API.
 
-### `npm run eject`
+- Search Suggestions: The search bar provides real-time suggestions that come from Google's API.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Debouncing: Debouncing is implemented to prevent excessive API calls when typing in the search bar.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Dependencies
+This app relies on the following major dependencies:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- ReactJs
+- Redux Toolkit
+- TailwindCSS
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+For a complete list of dependencies, please refer to the package.json file.
 
-## Learn More
+## Contributing
+Contributions are welcome! If you find any issues or have suggestions for improvements, please create a GitHub issue or submit a pull request.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
