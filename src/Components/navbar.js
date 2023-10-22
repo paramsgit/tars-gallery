@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toggleSearchbar, toggleNavbar } from '../utils/appSlice'
 import { searchValue } from '../utils/searchSlice'
 import { pageReset } from '../utils/pageSlice'
+import { searchSuggestionApi } from '../utils/constants'
 const Navbar = (props) => {
     const dispatch=useDispatch();
     const Theme=props.mode[0]
@@ -37,7 +38,7 @@ const Navbar = (props) => {
         {
           try{
           const response = await fetch(
-          `http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=${searchInput}`,
+          `${searchSuggestionApi}${searchInput}`,
         );
         const data=await response.json();
         console.log(data)
