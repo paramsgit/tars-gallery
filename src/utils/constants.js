@@ -1,4 +1,4 @@
-export const searchSuggestionApi="http://suggestqueries.google.com/complete/search?client=firefox&q="
+export const searchSuggestionApi="https://suggestqueries.google.com/complete/search?client=firefox&q="
 export const imagesDataApi="https://api.unsplash.com/search/photos/"
 export const twitter_url="https://twitter.com/"
 export const instagram_url="https://instagram.com/"
